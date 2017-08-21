@@ -19,7 +19,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class BasicStepdefs {
 
-    HashMap<String, SelenideElement> hashMemory = new HashMap<>();
+    HashMap<String, String> hashMemory = new HashMap<>();
 
     @И("^Зайти на \"([^\"]*)\"$")
     public void goToSelectedPageByLink(String url) {
@@ -119,7 +119,7 @@ public class BasicStepdefs {
          SelenideElement element = $(By.xpath("//h4[@class='title title_size_15'][1]"))
                 .shouldHave(Condition.visible)
                 .shouldHave(Condition.appear);
-         hashMemory.put(item , element);
+         hashMemory.put(item , element.getText().trim());
     }
 
     @И("^выполнить поиск по элементу \"([^\"]*)\"$")
@@ -128,8 +128,7 @@ public class BasicStepdefs {
         element.shouldHave(Condition.visible)
                 .shouldHave(Condition.appear)
                 .sendKeys(hashMemory
-                        .get(item)
-                        .getText());
+                        .get(item));
         element.sendKeys(Keys.RETURN);
     }
 
@@ -138,17 +137,16 @@ public class BasicStepdefs {
         String nameOfResult = $(By.xpath("//h1[@itemprop='name']"))
                 .shouldHave(Condition.visible)
                 .shouldHave(Condition.appear)
-                .getText();
-        if (nameOfResult == hashMemory.get(item).getText()){
+                .getText().trim();
+        if (nameOfResult.equals(hashMemory.get(item))){
             System.out.print("Название совпало");
         }else{
-            System.out.print("Название не совпало. Нашлось " + nameOfResult + " ; Ожидалось " + hashMemory.get(item).getText());
+            System.out.print("Название не совпало. Нашлось " + nameOfResult + " ; Ожидалось " + hashMemory.get(item));
         }
     }
 
     @И("^Верно отсортированы цены$")
     public void getPrice() {
-        //ElementsCollection prices = $$(By.xpath("//*[@class='snippet-cell__price']/child::span[@class='price']"));
         if (sortPrices($$(By.xpath("//*[@class='snippet-cell__price']/child::span[@class='price']")))){
             System.out.print("Цены отсортированы верно");
         }else{
