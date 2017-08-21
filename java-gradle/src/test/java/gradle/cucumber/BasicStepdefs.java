@@ -3,7 +3,6 @@ package gradle.cucumber;
 import com.codeborne.selenide.*;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Когда;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
@@ -144,7 +143,6 @@ public class BasicStepdefs {
         }else{
             System.out.print("Название не совпало. Нашлось " + nameOfResult + " ; Ожидалось " + hashMemory.get(item));
         }
-        Assert.fail();
     }
 
     @И("^Верно отсортированы цены$")
