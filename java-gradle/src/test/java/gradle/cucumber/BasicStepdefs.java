@@ -1,6 +1,7 @@
 package gradle.cucumber;
 
 import com.codeborne.selenide.*;
+import cucumber.api.PendingException;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Когда;
 import org.openqa.selenium.By;
@@ -103,13 +104,14 @@ public class BasicStepdefs {
     }
 
     @И("^отображается \"([^\"]*)\" элементов$")
-    public void checkResult(int count) {
+    public void checkResult(int count) throws Throwable {
         int countOfResults = $$(By.xpath("//h4[@class='title title_size_15']"))
                 .size();
         if (countOfResults == count){
             System.out.print("Количество совпало");
         }else{
             System.out.print("Количество не совпало. Нашлось " + countOfResults + " ; Ожидалось " + count);
+            throw new PendingException();
         }
 
     }
@@ -133,7 +135,7 @@ public class BasicStepdefs {
     }
 
     @И("^Наименование товара соотвествует запомненному значению \"([^\"]*)\"$")
-    public void checkFindRes(String item) {
+    public void checkFindRes(String item) throws Throwable {
         String nameOfResult = $(By.xpath("//h1[@itemprop='name']"))
                 .shouldHave(Condition.visible)
                 .shouldHave(Condition.appear)
@@ -142,15 +144,17 @@ public class BasicStepdefs {
             System.out.print("Название совпало");
         }else{
             System.out.print("Название не совпало. Нашлось " + nameOfResult + " ; Ожидалось " + hashMemory.get(item));
+            throw new PendingException();
         }
     }
 
     @И("^Верно отсортированы цены$")
-    public void getPrice() {
+    public void getPrice() throws Throwable {
         if (sortPrices($$(By.xpath("//*[@class='snippet-cell__price']/child::span[@class='price']")))){
             System.out.print("Цены отсортированы верно");
         }else{
             System.out.print("Цены отсортированы неверно");
+            throw new PendingException();
         }
     }
 
