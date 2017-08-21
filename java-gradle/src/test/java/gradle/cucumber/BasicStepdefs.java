@@ -2,8 +2,8 @@ package gradle.cucumber;
 
 import com.codeborne.selenide.*;
 import cucumber.api.PendingException;
-import cucumber.api.java.ru.И;
-import cucumber.api.java.ru.Когда;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
@@ -22,7 +22,7 @@ public class BasicStepdefs {
 
     HashMap<String, String> hashMemory = new HashMap<>();
 
-    @И("^Зайти на \"([^\"]*)\"$")
+    @And("^Зайти на \"([^\"]*)\"$")
     public void goToSelectedPageByLink(String url) {
         System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
         System.setProperty("selenide.browser", "Chrome");
@@ -30,18 +30,18 @@ public class BasicStepdefs {
         WebDriverRunner.getWebDriver().get(url);
     }
 
-    @Когда("^выполнено ожидание в течение (\\d+) секунд$")
+    @When("^выполнено ожидание в течение (\\d+) секунд$")
     public void waitDuring(int seconds) {
         Selenide.sleep(1000 * seconds);
     }
 
-    @И("^нажата ссылка \"([^\"]*)\"$")
+    @And("^нажата ссылка \"([^\"]*)\"$")
     public void goToLink(String linkName) {
         $(By.xpath("//*[text()='" + linkName + "']"))
                 .shouldBe(Condition.appear).click();
     }
 
-    @И("^выбрана категория \"([^\"]*)\"$")
+    @And("^выбрана категория \"([^\"]*)\"$")
     public void goToCategory(String linkName) {
         Actions action = new Actions(WebDriverRunner.getWebDriver());
         action.moveToElement($(By.xpath("//*[text()='Электроника']")));
@@ -55,13 +55,13 @@ public class BasicStepdefs {
         se.click();
     }
 
-    @И("^навестись на ссылку \"([^\"]*)\"$")
+    @And("^навестись на ссылку \"([^\"]*)\"$")
     public void chooseLinkFromMenu(String linkName) {
         Actions action = new Actions(WebDriverRunner.getWebDriver());
         action.moveToElement($(By.xpath("//*[text()='" + linkName + "']")));
     }
 
-    @И("^кликнуть на ссылку \"([^\"]*)\"$")
+    @And("^кликнуть на ссылку \"([^\"]*)\"$")
     public void clickLinkFromMenu(String linkName) {
         WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='" + linkName + "']")));
@@ -71,7 +71,7 @@ public class BasicStepdefs {
         se.click();
     }
 
-    @И("^нажата кнопка \"([^\"]*)\"$")
+    @And("^нажата кнопка \"([^\"]*)\"$")
     public void clickToButton(String btnName) {
         $(By.xpath("//button/span[text()='" + btnName + "']"))
                 .shouldBe(Condition.enabled)
@@ -80,20 +80,20 @@ public class BasicStepdefs {
                 .click();
     }
 
-    @И("^выбрано из списка \"([^\"]*)\"$")
+    @And("^выбрано из списка \"([^\"]*)\"$")
     public void choseLinkFromMenu(String linkName) {
         $(By.xpath("//*[text()='" + linkName + "' and contains(@class,'catalog-menu__list-item')][1]"))
                 .shouldBe(Condition.appear)
                 .click();
     }
-    @И("^установлена цена \"([^\"]*)\" на значение \"([^\"]*)\"$")
+    @And("^установлена цена \"([^\"]*)\" на значение \"([^\"]*)\"$")
     public void setPrice(String field, String value) {
         $(By.xpath("//*[@sign-title='" + field + "']/child::node()/input"))
                 .shouldBe(Condition.appear)
                 .sendKeys(value);
     }
 
-    @И("^отмечен чекбокс \"([^\"]*)\"$")
+    @And("^отмечен чекбокс \"([^\"]*)\"$")
     public void setPrice(String field) {
         $(By.xpath("//*[@class='checkbox__label' and text()='" + field + "']"))
                 .shouldBe(Condition.enabled)
@@ -103,7 +103,7 @@ public class BasicStepdefs {
 
     }
 
-    @И("^отображается \"([^\"]*)\" элементов$")
+    @And("^отображается \"([^\"]*)\" элементов$")
     public void checkResult(int count) throws Throwable {
         int countOfResults = $$(By.xpath("//h4[@class='title title_size_15']"))
                 .size();
@@ -116,7 +116,7 @@ public class BasicStepdefs {
 
     }
 
-    @И("^Запомнить первый элемент в списке \"([^\"]*)\"$")
+    @And("^Запомнить первый элемент в списке \"([^\"]*)\"$")
     public void memResult(String item) {
          SelenideElement element = $(By.xpath("//h4[@class='title title_size_15'][1]"))
                 .shouldHave(Condition.visible)
@@ -124,7 +124,7 @@ public class BasicStepdefs {
          hashMemory.put(item , element.getText().trim());
     }
 
-    @И("^выполнить поиск по элементу \"([^\"]*)\"$")
+    @And("^выполнить поиск по элементу \"([^\"]*)\"$")
     public void searcher(String item) {
         SelenideElement element = $(By.xpath("//input[@id='header-search']"));
         element.shouldHave(Condition.visible)
@@ -134,7 +134,7 @@ public class BasicStepdefs {
         element.sendKeys(Keys.RETURN);
     }
 
-    @И("^Наименование товара соотвествует запомненному значению \"([^\"]*)\"$")
+    @And("^Наименование товара соотвествует запомненному значению \"([^\"]*)\"$")
     public void checkFindRes(String item) throws Throwable {
         String nameOfResult = $(By.xpath("//h1[@itemprop='name']"))
                 .shouldHave(Condition.visible)
@@ -148,7 +148,7 @@ public class BasicStepdefs {
         }
     }
 
-    @И("^Верно отсортированы цены$")
+    @And("^Верно отсортированы цены$")
     public void getPrice() throws Throwable {
         if (sortPrices($$(By.xpath("//*[@class='snippet-cell__price']/child::span[@class='price']")))){
             System.out.print("Цены отсортированы верно");
