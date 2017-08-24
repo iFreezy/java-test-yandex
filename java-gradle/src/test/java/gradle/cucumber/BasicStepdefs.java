@@ -109,7 +109,7 @@ public class BasicStepdefs {
         int countOfResults = $$(By.xpath("//h4[@class='title title_size_15']"))
                 .size();
         if (countOfResults == count){
-            System.out.print("Количество совпало");
+            System.out.println("Количество совпало");
         }else{
             fail("Количество не совпало. Нашлось " + countOfResults + " ; Ожидалось " + count);
         }
@@ -136,12 +136,12 @@ public class BasicStepdefs {
 
     @And("^Наименование товара соотвествует запомненному значению \"([^\"]*)\"$")
     public void checkFindRes(String item) throws Throwable {
-        String nameOfResult = $(By.xpath("//h1[@itemprop='name']"))
+        String nameOfResult = $(By.xpath("//h1[@class='title title_size_22']"))
                 .shouldHave(Condition.visible)
                 .shouldHave(Condition.appear)
                 .getText().trim();
         if (nameOfResult.equals(hashMemory.get(item))){
-            System.out.print("Название совпало");
+            System.out.println("Название совпало");
         }else{
             fail("Название не совпало. Нашлось " + nameOfResult + " ; Ожидалось " + hashMemory.get(item));
         }
