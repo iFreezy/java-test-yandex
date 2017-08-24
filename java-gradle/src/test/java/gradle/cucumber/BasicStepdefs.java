@@ -17,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.codeborne.selenide.Selenide.*;
+import static org.junit.Assert.fail;
 
 public class BasicStepdefs {
 
@@ -110,8 +111,7 @@ public class BasicStepdefs {
         if (countOfResults == count){
             System.out.print("Количество совпало");
         }else{
-            System.out.print("Количество не совпало. Нашлось " + countOfResults + " ; Ожидалось " + count);
-            throw new PendingException();
+            fail("Количество не совпало. Нашлось " + countOfResults + " ; Ожидалось " + count);
         }
 
     }
@@ -143,8 +143,7 @@ public class BasicStepdefs {
         if (nameOfResult.equals(hashMemory.get(item))){
             System.out.print("Название совпало");
         }else{
-            System.out.print("Название не совпало. Нашлось " + nameOfResult + " ; Ожидалось " + hashMemory.get(item));
-            throw new PendingException();
+            fail("Название не совпало. Нашлось " + nameOfResult + " ; Ожидалось " + hashMemory.get(item));
         }
     }
 
@@ -153,8 +152,7 @@ public class BasicStepdefs {
         if (sortPrices($$(By.xpath("//*[@class='snippet-cell__price']/child::span[@class='price']")))){
             System.out.print("Цены отсортированы верно");
         }else{
-            System.out.print("Цены отсортированы неверно");
-            throw new PendingException();
+            fail("Цены отсортированы неверно");
         }
     }
 
