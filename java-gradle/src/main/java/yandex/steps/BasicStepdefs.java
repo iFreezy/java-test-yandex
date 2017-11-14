@@ -25,10 +25,7 @@ public class BasicStepdefs {
 
     @И("^Зайти на \"([^\"]*)\"$")
     public void goToSelectedPageByLink(String url) {
-        System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
-        System.setProperty("selenide.browser", "Chrome");
-        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), 20);
-        WebDriverRunner.getWebDriver().get(url);
+        open(url);
     }
     @И("^Ввести логин (.*)$")
     public void Login(String login) {
