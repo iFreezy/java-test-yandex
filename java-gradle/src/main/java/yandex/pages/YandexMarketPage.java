@@ -40,4 +40,10 @@ public class YandexMarketPage {
         $(By.linkText(link)).shouldBe(Condition.appear).click();
         return page(YandexMarketPage.class);
     }
+
+    public void goToTab(String name) {
+        $(By.xpath("//div[@class='catalog-menu__list']/child::a[contains(@class,'catalog-menu__list-item') and text()='" + name + "']"))
+                .shouldBe(Condition.appear)
+                .click();
+    }
 }

@@ -95,10 +95,10 @@ public class BasicStepdefs {
 
     @И("^выбрано из списка \"([^\"]*)\"$")
     public void choseLinkFromMenu(String linkName) {
-//        $(By.xpath("//*[text()='" + linkName + "' and contains(@class,'catalog-menu__list-item')][1]"))
-        $(By.xpath("//div[@class='catalog-menu__list']/child::a[contains(@class,'catalog-menu__list-item') and text()='"+linkName+"']"))
-                .shouldBe(Condition.appear)
-                .click();
+//        $(By.xpath("//div[@class='catalog-menu__list']/child::a[contains(@class,'catalog-menu__list-item') and text()='"+linkName+"']"))
+//                .shouldBe(Condition.appear)
+//                .click();
+        yandexMarketPage.goToTab(linkName);
     }
 
     @И("^установлена цена \"([^\"]*)\" на значение \"([^\"]*)\"$")
@@ -109,9 +109,12 @@ public class BasicStepdefs {
         yandexMarketPage.cost.shouldBe(Condition.appear).sendKeys(value);
     }
 
-    @И("^отмечен чекбокс \"([^\"]*)\"$")
-    public void setPrice(String field) {
-        yandexMarketPage.checkboxChecked(field);
+    @И("отмечен чекбокс")
+    public void setPrice(List<String> field) {
+        for (String item : field) {
+            yandexMarketPage.checkboxChecked(item);
+        }
+
 //        $(By.xpath("//*[@class='checkbox__label' and text()='" + field + "']"))
 //                .shouldBe(Condition.enabled)
 //                .shouldBe(Condition.visible)
@@ -129,7 +132,7 @@ public class BasicStepdefs {
 
     @И("^Запомнить первый элемент в списке \"([^\"]*)\"$")
     public void memResult(String item) {
-        hashMemory.put(item, yandexMarketPage.nameProductList.get(1).waitUntil(Condition.appear,5000).getText().trim()/*;element.getText().trim()*/);
+        hashMemory.put(item, yandexMarketPage.nameProductList.get(1).waitUntil(Condition.visible, 5000).getText().trim()/*;element.getText().trim()*/);
     }
 
     @И("^выполнить поиск по элементу \"([^\"]*)\"$")
