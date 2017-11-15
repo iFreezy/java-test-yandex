@@ -95,7 +95,8 @@ public class BasicStepdefs {
 
     @И("^выбрано из списка \"([^\"]*)\"$")
     public void choseLinkFromMenu(String linkName) {
-        $(By.xpath("//*[text()='" + linkName + "' and contains(@class,'catalog-menu__list-item')][1]"))
+//        $(By.xpath("//*[text()='" + linkName + "' and contains(@class,'catalog-menu__list-item')][1]"))
+        $(By.xpath("//div[@class='catalog-menu__list']/child::a[contains(@class,'catalog-menu__list-item') and text()='"+linkName+"']"))
                 .shouldBe(Condition.appear)
                 .click();
     }
