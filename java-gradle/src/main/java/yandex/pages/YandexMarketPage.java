@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.page;
 
 public class YandexMarketPage {
-    @FindBy(xpath = "//*[@sign-title='от']/child::node()/input")
+    @FindBy(xpath = "//span[@sign-title='от']/child::node()/input")
     public SelenideElement cost;
 
     @FindBy(xpath = "//input[@id='header-search']")
@@ -22,7 +22,7 @@ public class YandexMarketPage {
     @FindBy(css = ".n-title__text")
     public SelenideElement nameProduct;
 
-    @FindBy(css = ".n-snippet-cell2__title")
+    @FindBy(xpath = "//div[@class=\"n-snippet-cell2__title\"]/child::a")
     public List<SelenideElement> nameProductList;
 
     @FindBy(css = ".n-snippet-cell2__header")
@@ -32,18 +32,18 @@ public class YandexMarketPage {
     public List<SelenideElement> prices;
 
     public YandexMarketPage checkboxChecked(String name) {
-        $(By.xpath("//*[@class='checkbox__label' and text()='" + name + "']")).shouldBe(Condition.appear).click();
+        $(By.xpath("//*[@class='checkbox__label' and text()='" + name + "']")).shouldBe(Condition.visible).click();
         return page(YandexMarketPage.class);
     }
 
     public YandexMarketPage clickOnLink(String link) {
-        $(By.linkText(link)).shouldBe(Condition.appear).click();
+        $(By.linkText(link)).shouldBe(Condition.visible).click();
         return page(YandexMarketPage.class);
     }
 
     public void goToTab(String name) {
         $(By.xpath("//div[@class='catalog-menu__list']/child::a[contains(@class,'catalog-menu__list-item') and text()='" + name + "']"))
-                .shouldBe(Condition.appear)
+                .shouldBe(Condition.visible)
                 .click();
     }
 }
