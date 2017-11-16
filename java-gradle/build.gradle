@@ -36,6 +36,10 @@ test {
     jvmArgs += "-Dfile.encoding=UTF-8"
     jvmArgs += "-Dselenide.pageLoadStrategy=none"
 
+    if(remoteHub){
+        jvmArgs += "-Dremote=${remoteHub}"
+    }
+
     reports {
         html.enabled = true
         junitXml.enabled = false
